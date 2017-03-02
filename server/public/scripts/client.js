@@ -10,19 +10,31 @@ $("#register").on("click", function(){
 
   $("#ownerContainer").append('<p>' + fullName + '</p>');
 
-var ownerName = {
+var ownerNameObject = {
   firstName: firstInput,
   lastName: lastInput
 };
+console.log(ownerNameObject);
 
-    $.ajax({
-      type: 'POST',
-      url: '/ownername'
-      data: ownerName
-      success: function() {
+      $.ajax({
+        type: 'POST',
+        url: '/customername',
+        data: ownerNameObject,
+        success: function(response){
+          console.log(response);
+          getAllPets();
+          }
+      });//end of ajax POST
 
-      }
-    })
+    function getAllPets() {
+     $.ajax({
+       type: 'GET',
+       url: '/newpet',
+       success: function(response) {
+          console.log(response);
+         }
+     });//end of ajax
+   }//end of getAllPets()
 });//end of registure listener
 
 
@@ -52,3 +64,6 @@ $("table").on("click", ".goButton", function() {
   })
 }); //end on go button click
 });//end of doc.ready
+
+
+//
