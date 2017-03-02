@@ -10,7 +10,7 @@ $("#register").on("click", function(){
   var lastInput = $("#lastName").val();
   var fullName = firstInput + " " + lastInput;
 
-  $("#ownerContainer").append('<th>' + fullName + '</th>');
+  $("#ownerContainer").append('<p>' + fullName + '</p>');
 
     $.ajax({
       type: 'POST',
@@ -26,9 +26,9 @@ $("#addPetButton").on("click", function(){
   var petColor = $("#petColor").val();
   var petBreed = $("#breed").val();
 
-  $("#petNameContainer").append('<th>' + petName + '</th>');
-  $("#petBreedContainer").append('<th>' + petColor + '</th>');
-  $("#petColorContainer").append('<th>' + petBreed + '</th>');
+  $("#petNameContainer").append('<p>' + petName + '</p>');
+  $("#petBreedContainer").append('<p>' + petColor + '</p>');
+  $("#petColorContainer").append('<p>' + petBreed + '</p>');
 });//end of addpet listener
 
 
