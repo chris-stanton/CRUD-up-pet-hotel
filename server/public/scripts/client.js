@@ -1,7 +1,6 @@
 console.log("this works");
 $(document).ready(function(){
 
-<<<<<<< HEAD
 //registure button click listener
 $("#register").on("click", function(){
   event.preventDefault();
@@ -51,8 +50,6 @@ $("#addPetButton").on("click", function(){
   $("#petColorContainer").append('<p>' + petBreed + '</p>');
 });//end of addpet listener
 
-
-=======
   //add pets into table on the DOM
   $('tbody').append('<td>owner name</td>' +
   '<td><input type="text" placeholder="owner" class="inputOwnerName"/></td>' +
@@ -71,19 +68,10 @@ $("#addPetButton").on("click", function(){
 
     $("#ownerContainer").append('<p>' + fullName + '</p>');
 
-    var ownerName = {
-      firstName: firstInput,
-      lastName: lastInput
-    };
-
-    //     $.ajax({
-    //       type: 'POST',
-    //       url: '/ownername'
-    //       data: ownerName
-    //       success: function() {
-    //
-    //       }
-    //     })
+      var ownerName = {
+        firstName: firstInput,
+        lastName: lastInput
+      };
     });//end of registure listener
 
 
@@ -98,13 +86,8 @@ $("#addPetButton").on("click", function(){
       $("#petBreedContainer").append('<p>' + petColor + '</p>');
       $("#petColorContainer").append('<p>' + petBreed + '</p>');
     });//end of addpet listener
->>>>>>> dcbcac6e430f568f94c0f284b54f72528b0c7ce4
 
-
-
-
-
-<<<<<<< HEAD
+//Paige in process save/edit button
 $("table").on("click", ".goButton", function() {
   var thisPetId = $(this).parent().parent().children()
   $.ajax({
@@ -112,19 +95,19 @@ $("table").on("click", ".goButton", function() {
     url: '/save/' + thisPetId
   })
 }); //end on go button click
-});//end of doc.ready
 
 
-//
-=======
-
-    // button to save pet edits
-    $("table").on("click", ".goButton", function() { // change .goButton if name is different
-      var thisPetId = $(this).parent().parent().children()
+//petDeleteButton listener
+    $('petDeleteButton').on('click', function(){
+      event.preventDefault();
+      var idPetDelete = $(this).parent().parent().data().id;
       $.ajax({
-        type: 'GET',
-        url: '/save/' + thisPetId
-      });
-    }); //end on go button click
-  });//end of doc.ready
->>>>>>> dcbcac6e430f568f94c0f284b54f72528b0c7ce4
+      type: 'DELETE',
+      url: 'pets/delete/' + idPetDelete,
+      success: function(response){
+        console.log(response);
+      }
+    })
+  });//ends delete pet button
+
+});//end of doc.ready
