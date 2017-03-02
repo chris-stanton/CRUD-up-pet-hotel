@@ -4,7 +4,8 @@
   "description": "practice stack application using git merges and branches",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js"
   },
   "repository": {
     "type": "git",
