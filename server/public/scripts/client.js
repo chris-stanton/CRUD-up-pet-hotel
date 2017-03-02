@@ -24,7 +24,7 @@ $(".ownerName").append(fullName)
 
 
 
-$("table").on("click", ".goButton", function() {
+$("table").on("click", ".goButton", function() { // change .goButton if name is different
   var thisPetId = $(this).parent().parent().children()
   $.ajax({
     type: 'POST',
