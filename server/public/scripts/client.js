@@ -68,10 +68,10 @@ $("#addPetButton").on("click", function(){
 
     $("#ownerContainer").append('<p>' + fullName + '</p>');
 
-      var ownerName = {
-        firstName: firstInput,
-        lastName: lastInput
-      };
+    var ownerName = {
+      firstName: firstInput,
+      lastName: lastInput
+    };
     });//end of registure listener
 
 
