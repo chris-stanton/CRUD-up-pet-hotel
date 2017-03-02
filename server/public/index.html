@@ -11,8 +11,8 @@
   <h1>Owners and Pets</h1>
   <form class="ownerRegistration" action="index.html" method="post">
     <h2>Owner Registration</h2>
-    <label for="firstName">First Name</label><input type="text" name="firstName" placeholder="First Name"/>
-    <label for="lastName">Last Name</label><input type="text" name="lastName" placeholder="Last Name" />
+    <label for="firstName">First Name</label><input type="text" name="firstName" placeholder="First Name" id="firstName"/>
+    <label for="lastName">Last Name</label><input type="text" name="lastName" placeholder="Last Name" id="lastName"/>
     <button type="button" name="register" id="register">Register</button>
   </form>
   <form class="petRegistration" action="index.html" method="post">
@@ -23,18 +23,18 @@
         Owners go here
       </option>
     </select>
-    <label>Pet Name</label><input type="text" placeholder="Pet Name">
-    <label>Color</label><input type="text" placeholder="Color">
-    <label>Breed</label><input type="text" placeholder="Breed">
-    <button type="button" id="addPet">Add Pet</button>
+    <label>Pet Name</label><input type="text" placeholder="Pet Name" id="petName">
+    <label>Color</label><input type="text" placeholder="Color" id="petColor">
+    <label>Breed</label><input type="text" placeholder="Breed" id="breed">
+    <button type="button" id="addPetButton">Add Pet</button>
   </form>
 
   <table>
     <thead>
-      <th>Owner</th>
-      <th>Pet</th>
-      <th>Breed</th>
-      <th>Color</th>
+      <th id="ownerContainer">Owner</th>
+      <th id="petNameContainer">Pet</th>
+      <th id="petBreedContainer">Breed</th>
+      <th id="petColorContainer">Color</th>
       <th>Update</th>
       <th>Delete</th>
       <th>Check In/Out</th>

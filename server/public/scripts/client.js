@@ -1,67 +1,63 @@
-
+console.log("this works");
 $(document).ready(function(){
 
+  //add pets into table on the DOM
+  $('tbody').append('<td>owner name</td>' +
+  '<td><input type="text" placeholder="owner" class="inputOwnerName"/></td>' +
+  '<td><input type="text" placeholder="breed" class="inputBreed"/></td>' +
+  '<td><input type="text" placeholder="color" class="inputColor"/></td>' +
+  '<td><button class="updateButton">GO</button></td>' +
+  '<td><button class="deleteButton">GO</button></td>' +
+  '<td><button class="checkedIn">IN</button></td>');
+
+  //registure button click listener
+  $("#register").on("click", function(){
+    event.preventDefault();
+    var firstInput = $("#firstName").val();
+    var lastInput = $("#lastName").val();
+    var fullName = firstInput + " " + lastInput;
+
+    $("#ownerContainer").append('<p>' + fullName + '</p>');
+
+    var ownerName = {
+      firstName: firstInput,
+      lastName: lastInput
+    };
+
+    //     $.ajax({
+    //       type: 'POST',
+    //       url: '/ownername'
+    //       data: ownerName
+    //       success: function() {
+    //
+    //       }
+    //     })
+    });//end of registure listener
 
 
-//registure button click listener
-$(".ownerRegistration").on("click", function(){
+    //addpet button click listener
+    $("#addPetButton").on("click", function(){
+      event.preventDefault();
+      var petName = $("#petName").val();
+      var petColor = $("#petColor").val();
+      var petBreed = $("#breed").val();
 
-var firstInput = $(".firstInput").val();
-var lastInput = $(".lastInput").val();
-var fullName = toString(firstInput + lastInput);
-
-$(".ownerName").append(fullName)
-
-  $.ajax({
-    type: 'GET',
-    url: '/books',
-    success: function(response) {
-
-    }
-  });//end of ajax GET
-})://end of on.click
-});//end of doc.ready
+      $("#petNameContainer").append('<p>' + petName + '</p>');
+      $("#petBreedContainer").append('<p>' + petColor + '</p>');
+      $("#petColorContainer").append('<p>' + petBreed + '</p>');
+    });//end of addpet listener
 
 
 
 
 
 
-
-// <!DOCTYPE html>
-// <html>
-//   <head>
-//     <meta charset="utf-8">
-//     <title>PET HOTEL</title>
-//   </head>
-//   <body>
-//     <h1>Owners and Pets</h1>
-//     <form class="ownerRegistration" action="index.html" method="post">
-//       <h2>Owner Registration</h2>
-//       <label for="firstName">First Name</label>
-//<input type="text" name="firstName" placeholder="First Name"/>
-//       <label for="lastName">Last Name</label><input type="text" name="lastName" placeholder="Last Name" />
-//       <button type="button" name="register" id="register">Register</button>
-//     </form>
-//     <form class="petRegistration" action="index.html" method="post">
-//       <h2>Pet Registration</h2>
-//       <label class="ownerName">Owner Name</label>
-//         <select>
-//           <option>
-//             Owners go here
-//         </option>
-//       </select>
-//       <label>Pet Name</label><input type="text" placeholder="Pet Name">
-//       <label>Color</label><input type="text" placeholder="Color">
-//       <label>Breed</label><input type="text" placeholder="Breed">
-//       <button type="button" id="addPet">Add Pet</button>
-//     </form>
-//
-//     <table>
-//       <thead>
-//         <th>Owner</th>
-//       </thead>
-//     </table>
-//   </body>
-// </html>
-// Contact GitHub API Training Shop Blog About
+    // button to save pet edits
+    $("table").on("click", ".goButton", function() { // change .goButton if name is different
+      var thisPetId = $(this).parent().parent().children()
+      $.ajax({
+        type: 'GET',
+        url: '/save/' + thisPetId
+      });
+    }); //end on go button click
+  });//end of doc.ready
