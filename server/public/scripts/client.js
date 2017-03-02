@@ -48,7 +48,18 @@ $(document).ready(function(){
     });//end of addpet listener
 
 
-
+//petDeleteButton listener
+    $('petDeleteButton').on('click', function(){
+      event.preventDefault();
+      var idPetDelete = $(this).parent().parent().data().id;
+      $.ajax({
+      type: 'DELETE',
+      url: 'pets/delete/' + idPetDelete,
+      success: function(response){
+        console.log(response);
+      }
+    })
+  });//ends delete pet button
 
 
 
