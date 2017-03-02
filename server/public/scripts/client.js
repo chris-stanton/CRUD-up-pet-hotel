@@ -1,33 +1,54 @@
-
+console.log("this works");
 $(document).ready(function(){
 
-
-
 //registure button click listener
-$(".ownerRegistration").on("click", function(){
+$("#register").on("click", function(){
+  event.preventDefault();
+  var firstInput = $("#firstName").val();
+  var lastInput = $("#lastName").val();
+  var fullName = firstInput + " " + lastInput;
 
-var firstInput = $(".firstInput").val();
-var lastInput = $(".lastInput").val();
-var fullName = toString(firstInput + lastInput);
+  $("#ownerContainer").append('<p>' + fullName + '</p>');
 
-$(".ownerName").append(fullName)
+var ownerName = {
+  firstName: firstInput,
+  lastName: lastInput
+};
 
-  $.ajax({
-    type: 'GET',
-    url: '/books',
-    success: function(response) {
+    $.ajax({
+      type: 'POST',
+      url: '/ownername'
+      data: ownerName
+      success: function() {
 
-    }
-  });//end of ajax GET
-})://end of on.click
-});//end of doc.ready
+      }
+    })
+});//end of registure listener
+
+
+//addpet button click listener
+$("#addPetButton").on("click", function(){
+  event.preventDefault();
+  var petName = $("#petName").val();
+  var petColor = $("#petColor").val();
+  var petBreed = $("#breed").val();
+
+  $("#petNameContainer").append('<p>' + petName + '</p>');
+  $("#petBreedContainer").append('<p>' + petColor + '</p>');
+  $("#petColorContainer").append('<p>' + petBreed + '</p>');
+});//end of addpet listener
+
+
+
+
 
 
 
 $("table").on("click", ".goButton", function() { // change .goButton if name is different
   var thisPetId = $(this).parent().parent().children()
   $.ajax({
-    type: 'POST',
+    type: 'GET',
     url: '/save/' + thisPetId
   })
 }); //end on go button click
+});//end of doc.ready
