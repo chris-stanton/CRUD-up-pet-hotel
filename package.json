@@ -1,0 +1,24 @@
+{
+  "name": "crud-up-pet-hotel",
+  "version": "1.0.0",
+  "description": "practice stack application using git merges and branches",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-stanton/CRUD-up-pet-hotel.git"
+  },
+  "author": "Paige, Catherine, Chris, Edmundo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chris-stanton/CRUD-up-pet-hotel/issues"
+  },
+  "homepage": "https://github.com/chris-stanton/CRUD-up-pet-hotel#readme",
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "express": "^4.15.0",
+    "pg": "^6.1.2"
+  }
+}
