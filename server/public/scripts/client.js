@@ -10,7 +10,11 @@ $("#register").on("click", function(){
 
   $("#ownerContainer").append('<p>' + fullName + '</p>');
 
-var ownerName = {};
+var ownerName = {
+  firstName: firstInput,
+  lastName: lastInput
+};
+
     $.ajax({
       type: 'POST',
       url: '/ownername'
