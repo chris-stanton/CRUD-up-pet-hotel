@@ -3,8 +3,14 @@ $(document).ready(function(){
 
 
 
+//registure button click listener
+$(".ownerRegistration").on("click", function(){
 
+var firstInput = $(".firstInput").val();
+var lastInput = $(".lastInput").val();
+var fullName = toString(firstInput + lastInput);
 
+$(".ownerName").append(fullName)
 
   $.ajax({
     type: 'GET',
@@ -12,10 +18,8 @@ $(document).ready(function(){
     success: function(response) {
 
     }
-
   });//end of ajax GET
-
-
+})://end of on.click
 });//end of doc.ready
 
 
@@ -34,7 +38,8 @@ $(document).ready(function(){
 //     <h1>Owners and Pets</h1>
 //     <form class="ownerRegistration" action="index.html" method="post">
 //       <h2>Owner Registration</h2>
-//       <label for="firstName">First Name</label><input type="text" name="firstName" placeholder="First Name"/>
+//       <label for="firstName">First Name</label>
+//<input type="text" name="firstName" placeholder="First Name"/>
 //       <label for="lastName">Last Name</label><input type="text" name="lastName" placeholder="Last Name" />
 //       <button type="button" name="register" id="register">Register</button>
 //     </form>
