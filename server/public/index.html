@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <title>PET HOTEL</title>
   <script src="./vendor/jquery-3.1.1.js" charset="utf-8"></script>
-  <script src="./scripts/client.js" charset="utf-8"></script>
+  <script src="client.js" charset="utf-8"></script>
   <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
   <h1>Owners and Pets</h1>
   <form class="ownerRegistration" action="index.html" method="post">
     <h2>Owner Registration</h2>
-    <label for="firstName">First Name</label><input type="text" name="firstName" placeholder="First Name"/>
-    <label for="lastName">Last Name</label><input type="text" name="lastName" placeholder="Last Name" />
+    <label for="firstName">First Name</label><input type="text" name="firstName" placeholder="First Name" id="firstName"/>
+    <label for="lastName">Last Name</label><input type="text" name="lastName" placeholder="Last Name" id="lastName"/>
     <button type="button" name="register" id="register">Register</button>
   </form>
   <form class="petRegistration" action="index.html" method="post">
@@ -31,7 +31,7 @@
 
   <table>
     <thead>
-      <th>Owner</th>
+      <th in="ownerContainer">Owner</th>
       <th>Pet</th>
       <th>Breed</th>
       <th>Color</th>
