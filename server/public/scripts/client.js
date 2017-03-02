@@ -49,12 +49,12 @@ $(document).ready(function(){
 
 
 //petDeleteButton listener
-    $('petDeleteButton').on('click', function(){
+    $('table').on('click', '.deleteButton' function(){
       event.preventDefault();
       var idPetDelete = $(this).parent().parent().data().id;
       $.ajax({
       type: 'DELETE',
-      url: 'pets/delete/' + idPetDelete,
+      url: '/delete/' + idPetDelete,
       success: function(response){
         console.log(response);
       }
