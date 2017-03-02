@@ -3,12 +3,12 @@ $(document).ready(function(){
 
   //add pets into table on the DOM
   $('tbody').append('<td>owner name</td>' +
-  '<td><input type="text" placeholder="owner"/></td>' +
-  '<td><input type="text" placeholder="breed"/></td>' +
-  '<td><input type="text" placeholder="color"/></td>' +
-  '<td><button>GO</button></td>' +
-  '<td><button>GO</button></td>' +
-  '<td><button>IN</button></td>');
+  '<td><input type="text" placeholder="owner" class="inputOwnerName"/></td>' +
+  '<td><input type="text" placeholder="breed" class="inputBreed"/></td>' +
+  '<td><input type="text" placeholder="color" class="inputColor"/></td>' +
+  '<td><button class="updateButton">GO</button></td>' +
+  '<td><button class="deleteButton">GO</button></td>' +
+  '<td><button class="checkedIn">IN</button></td>');
 
   //registure button click listener
   $("#register").on("click", function(){
