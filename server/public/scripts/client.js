@@ -1,5 +1,4 @@
-
-var petDatabaseArray = [];
+var petTableArray = [];
 
 console.log("this works");
 $(document).ready(function(){
@@ -40,7 +39,6 @@ console.log(ownerNameObject);
    }//end of getAllPets()
 });//end of registure listener
 
-
 //addpet button click listener
 $("#addPetButton").on("click", function(){
   event.preventDefault();
@@ -52,7 +50,7 @@ $("#addPetButton").on("click", function(){
   $("#petBreedContainer").append('<p>' + petColor + '</p>');
   $("#petColorContainer").append('<p>' + petBreed + '</p>');
 
-  appendPetToTable(petDatabaseArray);
+  appendPetToTable(petTableArray);
 
 });//end of addpet listener
 
@@ -62,10 +60,11 @@ $("#addPetButton").on("click", function(){
     type: 'GET',
     url: '/newpet/getpet',
     success: function(response) {
-      console.log(response);
-      petDatabaseArray = response;
-      for (var i = 0; i < response.length; i++) {
-        appendPetToTable(response[i]);
+      petTableArray = response;
+      console.log(petTableArray);
+      for (var i = 0; i < petTableArray.length; i++) {
+        appendPetToTable(petTableArray[i]);
+
       }
 
     },
@@ -76,32 +75,41 @@ $("#addPetButton").on("click", function(){
 
 }); // end ajax call for table
 
-//Paige in process save/edit button
-$("table").on("click", ".goButton", function() {
-  var thisPetId = $(this).parent().parent().children()
+//Paige in process update button
+$("table").on("click", ".updateButton", function() {
+  var thisPetId = $(this).parent().first(); //.data().id;
+  console.log(thisPetId);
   $.ajax({
     type: 'GET',
-    url: '/save/' + thisPetId
+    url: '/save/' + thisPetId,
+    success: function(response) {
+      console.log(response);
+    },
+    error: function(response) {
+      console.log(response);
+    }
   })
-}); //end on go button click
+}); //end on click update button click
 
 
 //petDeleteButton listener
-$('table').on('click', '.deleteButton',  function(){
-  event.preventDefault();
-  var idPetDelete = $(this).parent().data().id;
-  $.ajax({
-  type: 'DELETE',
-  url: '/delete/' + idPetDelete,
-  success: function(response){
-    console.log(response);
-  }
-})
-});//ends delete pet button
+
+    $('table').on('click', '.deleteButton',  function(){
+      event.preventDefault();
+      var idPetDelete = $(this).parent().data().id;
+      $.ajax({
+      type: 'DELETE',
+      url: '/delete/' + idPetDelete,
+      success: function(response){
+        console.log(response);
+      }
+    })
+  });//ends delete pet button
+
 
 });//end of doc.ready
 
-
+// appends pet to the table
 function appendPetToTable(response) {
   $('tbody').append('<tr data-id="' + response.id + '"><td>' + response.first_name + ' ' + response.last_name + '</td>' +
   '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response.name + '"/></td>' +
