@@ -80,7 +80,7 @@ $(document).ready(function(){
     var thisPetId = $(this).parent().parent().data().id;
     console.log(thisPetId);
     $.ajax({
-      type: 'POST',
+      type: 'PUT',
       url: '/pets/save/' + thisPetId,
       success: function(response) {
         console.log(response);
@@ -99,7 +99,7 @@ $('table').on('click', '.deleteButton',  function(){
   console.log(idPetDelete);
   $.ajax({
   type: 'DELETE',
-  url: '/delete/' + idPetDelete,
+  url: 'pets/delete/' + idPetDelete,
   success: function(response){
     console.log(response);
   },

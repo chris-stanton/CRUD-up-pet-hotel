@@ -20,8 +20,8 @@ router.post('/new', function(req, res){
       console.log('Error connecting to database: ', errorConnectingToDatabase);
       res.sendStatus(500);
     } else {
-      client.query('INSERT INTO pets (name, breed, color) VALUES ($1, $2, $3);',
-        [newPet.name, newPet.breed, newPet.color], //client.js & index should correspond to each othor
+      client.query('INSERT INTO pets (name, breed, color, checkedin, active) VALUES ($1, $2, $3, $4, $5);',
+        [newPet.name, newPet.breed, newPet.color, true, true], //client.js & index should correspond to each othor
         function(errorMakingQuery, result){
           done();
           if(errorMakingQuery) {
@@ -70,9 +70,7 @@ router.delete('/delete/:id', function(req, res){
         console.log('Error connecting to database: ', errorConnectingToDatabase);
         res.sendStatus(500);
       } else {
-        client.query('DELETE FROM pets WHERE id=$1;', //SQL query
-          [bookId],
-          function(errorMakingQuery, result){ //function that runs after query takes place
+        client.query('DELETE FROM pets WHERE id=$1;', [petId], function(errorMakingQuery, result){ //function that runs after query takes place
             done();
             if(errorMakingQuery) {
               console.log('Error making the database query: ', errorMakingQuery);
@@ -107,5 +105,29 @@ router.get('/fetch', function(req, res){
     }
   }); // end pool.connect
 }); // end router.get
+
+
+// will be checked in  post function
+// router.post('/delete/:id', function(req, res){
+//   var petId = req.params.id;
+//     console.log('pet id to delete', petId);
+//   //connecting to and deleting row from db
+//     pool.connect(function(errorConnectingToDatabase, client, done){
+//       if(errorConnectingToDatabase) {
+//         console.log('Error connecting to database: ', errorConnectingToDatabase);
+//         res.sendStatus(500);
+//       } else {
+//         client.query('DELETE FROM pets WHERE id=$1;', [petId], function(errorMakingQuery, result){ //function that runs after query takes place
+//             done();
+//             if(errorMakingQuery) {
+//               console.log('Error making the database query: ', errorMakingQuery);
+//               res.sendStatus(500);
+//             } else {
+//               res.sendStatus(202);
+//             }
+//           });
+//       }
+//     });
+//   });
 
 module.exports = router;
