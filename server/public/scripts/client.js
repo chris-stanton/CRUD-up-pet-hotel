@@ -95,7 +95,8 @@ $("table").on("click", ".updateButton", function() {
 //petDeleteButton listener
 $('table').on('click', '.deleteButton',  function(){
   event.preventDefault();
-  var idPetDelete = $(this).parent().parent.data().id;
+  var idPetDelete = $(this).parent().parent().data().id;
+  console.log(idPetDelete);
   $.ajax({
   type: 'DELETE',
   url: '/delete/' + idPetDelete,
