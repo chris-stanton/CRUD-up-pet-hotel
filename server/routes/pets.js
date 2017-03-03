@@ -108,26 +108,27 @@ router.get('/fetch', function(req, res){
 
 
 // will be checked in  post function
-// router.post('/delete/:id', function(req, res){
-//   var petId = req.params.id;
-//     console.log('pet id to delete', petId);
-//   //connecting to and deleting row from db
-//     pool.connect(function(errorConnectingToDatabase, client, done){
-//       if(errorConnectingToDatabase) {
-//         console.log('Error connecting to database: ', errorConnectingToDatabase);
-//         res.sendStatus(500);
-//       } else {
-//         client.query('DELETE FROM pets WHERE id=$1;', [petId], function(errorMakingQuery, result){ //function that runs after query takes place
-//             done();
-//             if(errorMakingQuery) {
-//               console.log('Error making the database query: ', errorMakingQuery);
-//               res.sendStatus(500);
-//             } else {
-//               res.sendStatus(202);
-//             }
-//           });
-//       }
-//     });
-//   });
+router.post('/checkin/:id', function(req, res){
+  var petId = req.params.id;
+  console.log(req.body.petId);
+  var checkedInBoolean = req.body.petId;
+  //connecting to and deleting row from db
+    pool.connect(function(errorConnectingToDatabase, client, done){
+      if(errorConnectingToDatabase) {
+        console.log('Error connecting to database: ', errorConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        client.query('UPDATE pets SET checkedin = $1;', [checkedInBoolean], function(errorMakingQuery, result){ //function that runs after query takes place
+            done();
+            if(errorMakingQuery) {
+              console.log('Error making the database query: ', errorMakingQuery);
+              res.sendStatus(500);
+            } else {
+              res.sendStatus(202);
+            }
+          });
+      }
+    });
+  });
 
 module.exports = router;

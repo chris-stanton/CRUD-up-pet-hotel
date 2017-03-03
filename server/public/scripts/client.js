@@ -1,4 +1,6 @@
 var petTableArray = [];
+var checkedInWord;
+var checkedInStatus = true;
 
 console.log("this works");
 $(document).ready(function(){
@@ -54,7 +56,7 @@ $(document).ready(function(){
 
   });//end of addpet listener
 
-  //add pets into table on the DOM
+  //add pets into table on the DOM, checks for checkinstatus
 
   $.ajax({
     type: 'GET',
@@ -63,10 +65,16 @@ $(document).ready(function(){
       petTableArray = response;
       console.log(petTableArray);
       for (var i = 0; i < petTableArray.length; i++) {
-        appendPetToTable(petTableArray[i]);
-
+        appendPetToTable(petTableArray[i], checkedInStatus);
+        checkedInStatus = response[i].checkedin;
+        if(checkedInStatus) {
+          $('.checkedIn').text('CHECK IN');
+          checkedInStatus = false;
+        } else {
+          $('.checkedIn').text('CHECK OUT');
+          checkedInStatus = true;
+        }
       }
-
     },
     error: function(response) {
       console.log(response);
@@ -78,10 +86,17 @@ $(document).ready(function(){
   //Paige in process update button
   $("table").on("click", ".updateButton", function() {
     var thisPetId = $(this).parent().parent().data().id;
-    console.log(thisPetId);
+    var thisPetUpdateObject = {
+      owner_id: $('.ownerInfo').data().id,
+      name: $('.inputPetName').val(),
+      breed: $('.inputBreed').val() ,
+      color: $('.inputColor').val()
+    }
+    console.log(thisPetUpdateObject);
     $.ajax({
       type: 'PUT',
       url: '/pets/save/' + thisPetId,
+      data: thisPetUpdateObject,
       success: function(response) {
         console.log(response);
       },
@@ -92,32 +107,59 @@ $(document).ready(function(){
   }); //end on click update button click
 
 
-//petDeleteButton listener
-$('table').on('click', '.deleteButton',  function(){
-  event.preventDefault();
-  var idPetDelete = $(this).parent().parent().data().id;
-  console.log(idPetDelete);
-  $.ajax({
-  type: 'DELETE',
-  url: 'pets/delete/' + idPetDelete,
-  success: function(response){
-    console.log(response);
-  },
-  error: function(response) {
-    console.log(response);
-  }
-})
-});//ends delete pet button
+  //petDeleteButton listener
+  $('table').on('click', '.deleteButton',  function(){
+    event.preventDefault();
+    var idPetDelete = $(this).parent().parent().data().id;
+    console.log(idPetDelete);
+    $.ajax({
+      type: 'DELETE',
+      url: 'pets/delete/' + idPetDelete,
+      success: function(response){
+        console.log(response);
+      },
+      error: function(response) {
+        console.log(response);
+      }
+    })
+  });//ends delete pet button
 
+
+  // checked in on click
+  $('table').on('click', '.checkedIn', function() {
+    if(checkedInWord) {
+      $('.checkedIn').text('CHECK IN');
+      checkedInWord = false;
+    } else {
+      $('.checkedIn').text('CHECK OUT');
+      checkedInWord = true;
+    }
+    var idPetCheckIn = $(this).parent().parent().data().id
+    var checkedInObject = {
+      petId: checkedInWord
+    };
+    $.ajax({
+      type: 'POST',
+      url: 'pets/checkin/' + idPetCheckIn,
+      data: checkedInObject,
+      success: function(response) {
+        console.log(response);
+      },
+      error: function(response) {
+        console.log(response);
+      }
+    }); // end ajax call
+    console.log(checkedInWord);
+  }); // on checkedIn button click
 });//end of doc.ready
 
 // appends pet to the table
-function appendPetToTable(response) {
-  $('tbody').append('<tr data-id="' + response.id + '"><td>' + response.first_name + ' ' + response.last_name + '</td>' +
+function appendPetToTable(response, checkedInStatus) {
+  $('tbody').append('<tr class="ownerInfo" data-id="' + response.id + '"><td>' + response.first_name + ' ' + response.last_name + '</td>' +
   '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response.name + '"/></td>' +
   '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response.breed + '"/></td>' +
   '<td><input type="text" placeholder="color" class="inputColor" value="' + response.color + '"/></td>' +
   '<td><button class="updateButton">GO</button></td>' +
   '<td><button class="deleteButton">GO</button></td>' +
-  '<td><button class="checkedIn">IN</button></td></tr>');
+  '<td><button class="checkedIn">' + response.checkedin + '</button></td></tr>');
 }
