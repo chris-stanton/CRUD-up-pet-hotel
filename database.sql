@@ -27,3 +27,8 @@ FROM pets
 JOIN owners 
 ON owners.id=pets.owner_id
 ;
+
+/* New column boolean storage for bitches and checkin true/false */
+ALTER TABLE pets  
+ADD checkedin boolean
+;
