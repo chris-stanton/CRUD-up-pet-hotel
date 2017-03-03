@@ -1,3 +1,6 @@
+
+var petDatabaseArray = [];
+
 console.log("this works");
 $(document).ready(function(){
 
@@ -48,6 +51,9 @@ $("#addPetButton").on("click", function(){
   $("#petNameContainer").append('<p>' + petName + '</p>');
   $("#petBreedContainer").append('<p>' + petColor + '</p>');
   $("#petColorContainer").append('<p>' + petBreed + '</p>');
+
+  appendPetToTable(petDatabaseArray);
+
 });//end of addpet listener
 
   //add pets into table on the DOM
@@ -57,14 +63,9 @@ $("#addPetButton").on("click", function(){
     url: '/newpet/getpet',
     success: function(response) {
       console.log(response);
+      petDatabaseArray = response;
       for (var i = 0; i < response.length; i++) {
-        $('tbody').append('<td>' + response[i].owner_id + '</td>' +
-        '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response[i].name + '"/></td>' +
-        '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response[i].breed + '"/></td>' +
-        '<td><input type="text" placeholder="color" class="inputColor" value="' + response[i].color + '"/></td>' +
-        '<td><button class="updateButton">GO</button></td>' +
-        '<td><button class="deleteButton">GO</button></td>' +
-        '<td><button class="checkedIn">IN</button></td>');
+        appendPetToTable(response[i]);
       }
 
     },
@@ -88,7 +89,7 @@ $("table").on("click", ".goButton", function() {
 //petDeleteButton listener
 $('table').on('click', '.deleteButton',  function(){
   event.preventDefault();
-  var idPetDelete = $(this).parent().parent().data().id;
+  var idPetDelete = $(this).parent().data().id;
   $.ajax({
   type: 'DELETE',
   url: '/delete/' + idPetDelete,
@@ -99,3 +100,14 @@ $('table').on('click', '.deleteButton',  function(){
 });//ends delete pet button
 
 });//end of doc.ready
+
+
+function appendPetToTable(response) {
+  $('tbody').append('<tr data-id="' + response.id + '"><td>' + response.first_name + ' ' + response.last_name + '</td>' +
+  '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response.name + '"/></td>' +
+  '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response.breed + '"/></td>' +
+  '<td><input type="text" placeholder="color" class="inputColor" value="' + response.color + '"/></td>' +
+  '<td><button class="updateButton">GO</button></td>' +
+  '<td><button class="deleteButton">GO</button></td>' +
+  '<td><button class="checkedIn">IN</button></td></tr>');
+}
