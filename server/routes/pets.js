@@ -12,7 +12,7 @@ var config = {
 var pool = new pg.Pool(config);
 
 router.post('/new', function(req, res){
-  var newPet = req.body;
+  var pets = req.body;
 
   pool.connect(function(errorConnectingToDatabase, client, done){
     if(errorConnectingToDatabase) {
@@ -20,7 +20,7 @@ router.post('/new', function(req, res){
       res.sendStatus(500);
     } else {
       client.query('INSERT INTO pets (name, breed, color) VALUES ($1, $2, $3);',
-        [newPet.name, newPet.breed, newPet.color], //client.js & index should correspond to each othor
+        [pets.name, pets.breed, pets.color], //client.js & index should correspond to each othor
         function(errorMakingQuery, result){
           done();
           if(errorMakingQuery) {

@@ -32,7 +32,7 @@ console.log(ownerNameObject);
     function getAllPets() {
      $.ajax({
        type: 'GET',
-       url: '/newpet',
+       url: '/pets',
        success: function(response) {
           console.log(response);
          }
@@ -55,7 +55,7 @@ $("#addPetButton").on("click", function(){
 
   $.ajax({ //ajax call to post new pet
     type: 'POST',
-    url: '/newpet/new',
+    url: '/pets/new',
     data: addedPet,
     success: function(response){
       console.log(response);
@@ -70,7 +70,7 @@ $("#addPetButton").on("click", function(){
 
   $.ajax({
     type: 'GET',
-    url: '/newpet/getpet',
+    url: '/pets/getpet',
     success: function(response) {
       console.log(response);
       petDatabaseArray = response;
