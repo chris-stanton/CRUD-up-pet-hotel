@@ -58,7 +58,7 @@ $("#addPetButton").on("click", function(){
     success: function(response) {
       console.log(response);
       for (var i = 0; i < response.length; i++) {
-        $('tbody').append('<td>owner name</td>' +
+        $('tbody').append('<td>' + response[i].owner_id + '</td>' +
         '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response[i].name + '"/></td>' +
         '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response[i].breed + '"/></td>' +
         '<td><input type="text" placeholder="color" class="inputColor" value="' + response[i].color + '"/></td>' +
