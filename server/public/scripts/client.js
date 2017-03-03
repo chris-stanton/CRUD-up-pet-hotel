@@ -2,13 +2,25 @@ console.log("this works");
 $(document).ready(function(){
 
   //add pets into table on the DOM
-  $('tbody').append('<td>owner name</td>' +
-  '<td><input type="text" placeholder="owner"/></td>' +
-  '<td><input type="text" placeholder="breed"/></td>' +
-  '<td><input type="text" placeholder="color"/></td>' +
-  '<td><button>GO</button></td>' +
-  '<td><button>GO</button></td>' +
-  '<td><button>IN</button></td>');
+  $.ajax({
+    type: 'GET',
+    url: '/',
+    success: function(response) {
+      console.log(response);
+        $('tbody').append('<td>owner name</td>' +
+        '<td><input type="text" placeholder="owner"/></td>' +
+        '<td><input type="text" placeholder="breed"/></td>' +
+        '<td><input type="text" placeholder="color"/></td>' +
+        '<td><button>GO</button></td>' +
+        '<td><button>GO</button></td>' +
+        '<td><button>IN</button></td>');
+    },
+    error: function(response) {
+      console.log(response);
+    }
+
+
+}); // end ajax call for table
 
   //registure button click listener
   $("#register").on("click", function(){
@@ -26,7 +38,7 @@ $(document).ready(function(){
 
     //     $.ajax({
     //       type: 'POST',
-    //       url: '/ownername'
+    //       url: '/ownername'``
     //       data: ownerName
     //       success: function() {
     //
