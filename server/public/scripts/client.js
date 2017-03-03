@@ -92,20 +92,22 @@ $(document).ready(function(){
   }); //end on click update button click
 
 
-  //petDeleteButton listener
-
-  $('table').on('click', '.deleteButton',  function(){
-    event.preventDefault();
-    var idPetDelete = $(this).parent().data().id;
-    $.ajax({
-      type: 'DELETE',
-      url: '/pets/delete/' + idPetDelete,
-      success: function(response){
-        console.log(response);
-      }
-    })
-  });//ends delete pet button
-
+//petDeleteButton listener
+$('table').on('click', '.deleteButton',  function(){
+  event.preventDefault();
+  var idPetDelete = $(this).parent().parent().data().id;
+  console.log(idPetDelete);
+  $.ajax({
+  type: 'DELETE',
+  url: '/delete/' + idPetDelete,
+  success: function(response){
+    console.log(response);
+  },
+  error: function(response) {
+    console.log(response);
+  }
+})
+});//ends delete pet button
 
 });//end of doc.ready
 
