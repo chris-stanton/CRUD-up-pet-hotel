@@ -39,7 +39,6 @@ console.log(ownerNameObject);
    }//end of getAllPets()
 });//end of registure listener
 
-
 //addpet button click listener
 $("#addPetButton").on("click", function(){
   event.preventDefault();
@@ -52,6 +51,7 @@ $("#addPetButton").on("click", function(){
   $("#petColorContainer").append('<p>' + petBreed + '</p>');
 
   appendPetToTable(petTableArray);
+
 });//end of addpet listener
 
   //add pets into table on the DOM
@@ -64,6 +64,7 @@ $("#addPetButton").on("click", function(){
       console.log(petTableArray);
       for (var i = 0; i < petTableArray.length; i++) {
         appendPetToTable(petTableArray[i]);
+
       }
 
     },
@@ -80,7 +81,13 @@ $("table").on("click", ".updateButton", function() {
   console.log(thisPetId);
   $.ajax({
     type: 'GET',
-    url: '/save/' + thisPetId
+    url: '/save/' + thisPetId,
+    success: function(response) {
+      console.log(response);
+    },
+    error: function(response) {
+      console.log(response);
+    }
   })
 }); //end on click update button click
 
@@ -88,7 +95,7 @@ $("table").on("click", ".updateButton", function() {
 //petDeleteButton listener
     $('table').on('click', '.deleteButton',  function(){
       event.preventDefault();
-      var idPetDelete = $(this).parent().parent().data().id;
+      var idPetDelete = $(this).parent().data().id;
       $.ajax({
       type: 'DELETE',
       url: '/delete/' + idPetDelete,
@@ -102,7 +109,7 @@ $("table").on("click", ".updateButton", function() {
 
 // appends pet to the table
 function appendPetToTable(response) {
-  $('tbody').append('<tr><td>' + response.owner_id + '</td>' +
+  $('tbody').append('<tr data-id="' + response.id + '"><td>' + response.first_name + ' ' + response.last_name + '</td>' +
   '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response.name + '"/></td>' +
   '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response.breed + '"/></td>' +
   '<td><input type="text" placeholder="color" class="inputColor" value="' + response.color + '"/></td>' +
