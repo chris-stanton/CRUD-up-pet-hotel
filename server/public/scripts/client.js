@@ -1,3 +1,5 @@
+var petTableArray = [];
+
 console.log("this works");
 $(document).ready(function(){
 
@@ -48,6 +50,8 @@ $("#addPetButton").on("click", function(){
   $("#petNameContainer").append('<p>' + petName + '</p>');
   $("#petBreedContainer").append('<p>' + petColor + '</p>');
   $("#petColorContainer").append('<p>' + petBreed + '</p>');
+
+  appendPetToTable(petTableArray);
 });//end of addpet listener
 
   //add pets into table on the DOM
@@ -56,15 +60,10 @@ $("#addPetButton").on("click", function(){
     type: 'GET',
     url: '/newpet/getpet',
     success: function(response) {
-      console.log(response);
-      for (var i = 0; i < response.length; i++) {
-        $('tbody').append('<td>' + response[i].owner_id + '</td>' +
-        '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response[i].name + '"/></td>' +
-        '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response[i].breed + '"/></td>' +
-        '<td><input type="text" placeholder="color" class="inputColor" value="' + response[i].color + '"/></td>' +
-        '<td><button class="updateButton">GO</button></td>' +
-        '<td><button class="deleteButton">GO</button></td>' +
-        '<td><button class="checkedIn">IN</button></td>');
+      petTableArray = response;
+      console.log(petTableArray);
+      for (var i = 0; i < petTableArray.length; i++) {
+        appendPetToTable(petTableArray[i]);
       }
 
     },
@@ -99,3 +98,14 @@ $("table").on("click", ".goButton", function() {
   });//ends delete pet button
 
 });//end of doc.ready
+
+// appends pet to the table
+function appendPetToTable(response) {
+  $('tbody').append('<tr><td>' + response.owner_id + '</td>' +
+  '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response.name + '"/></td>' +
+  '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response.breed + '"/></td>' +
+  '<td><input type="text" placeholder="color" class="inputColor" value="' + response.color + '"/></td>' +
+  '<td><button class="updateButton">GO</button></td>' +
+  '<td><button class="deleteButton">GO</button></td>' +
+  '<td><button class="checkedIn">IN</button></td></tr>');
+}
