@@ -37,3 +37,16 @@ ADD checkedin boolean
 INSERT INTO owners 
 VALUES ($1, $2)
 ;
+
+ALTER TABLE pets  
+ADD checkedin boolean
+;
+
+INSERT INTO owners 
+VALUES ($1, $2)
+;
+
+ALTER TABLE pets  
+ADD active boolean
+;
+
