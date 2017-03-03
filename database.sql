@@ -20,3 +20,7 @@ CREATE TABLE visits (
     checkout_date DATE,
     pets_id integer REFERENCES pets
 );
+
+INSERT INTO owners 
+VALUES ($1, $2)
+;
