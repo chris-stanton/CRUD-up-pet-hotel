@@ -98,6 +98,7 @@ router.get('/getpet', function(req, res){
           res.sendStatus(500);
         } else {
           res.send(result.rows);
+          console.log(result.rows);
         }
       }); // end client.query
     }
