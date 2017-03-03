@@ -103,7 +103,7 @@ $("table").on("click", ".goButton", function() {
 
 
 function appendPetToTable(response) {
-  $('tbody').append('<tr><td>' + response.first_name + ' ' + response.last_name + '</td>' +
+  $('tbody').append('<tr data-id="' + response.id + '"><td>' + response.first_name + ' ' + response.last_name + '</td>' +
   '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response.name + '"/></td>' +
   '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response.breed + '"/></td>' +
   '<td><input type="text" placeholder="color" class="inputColor" value="' + response.color + '"/></td>' +
