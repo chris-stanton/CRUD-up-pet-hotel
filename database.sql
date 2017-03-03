@@ -20,3 +20,10 @@ CREATE TABLE visits (
     checkout_date DATE,
     pets_id integer REFERENCES pets
 );
+
+
+SELECT pets.owner_id, owners.first_name, owners.last_name, pets.name
+FROM pets 
+JOIN owners 
+ON owners.id=pets.owner_id
+;
