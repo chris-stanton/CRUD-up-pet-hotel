@@ -86,16 +86,16 @@ $("table").on("click", ".goButton", function() {
 
 
 //petDeleteButton listener
-    $('table').on('click', '.deleteButton',  function(){
-      event.preventDefault();
-      var idPetDelete = $(this).parent().parent().data().id;
-      $.ajax({
-      type: 'DELETE',
-      url: '/delete/' + idPetDelete,
-      success: function(response){
-        console.log(response);
-      }
-    })
-  });//ends delete pet button
+$('table').on('click', '.deleteButton',  function(){
+  event.preventDefault();
+  var idPetDelete = $(this).parent().parent().data().id;
+  $.ajax({
+  type: 'DELETE',
+  url: '/delete/' + idPetDelete,
+  success: function(response){
+    console.log(response);
+  }
+})
+});//ends delete pet button
 
 });//end of doc.ready
