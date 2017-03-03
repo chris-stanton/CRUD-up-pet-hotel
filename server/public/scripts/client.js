@@ -93,6 +93,7 @@ $("table").on("click", ".updateButton", function() {
 
 
 //petDeleteButton listener
+
     $('table').on('click', '.deleteButton',  function(){
       event.preventDefault();
       var idPetDelete = $(this).parent().data().id;
@@ -104,6 +105,7 @@ $("table").on("click", ".updateButton", function() {
       }
     })
   });//ends delete pet button
+
 
 });//end of doc.ready
 
