@@ -11,9 +11,10 @@ var config = {
 
 var pool = new pg.Pool(config);
 
+
+// new pet send to to database
 router.post('/new', function(req, res){
   var newPet = req.body;
-
   pool.connect(function(errorConnectingToDatabase, client, done){
     if(errorConnectingToDatabase) {
       console.log('Error connecting to database: ', errorConnectingToDatabase);
@@ -34,7 +35,7 @@ router.post('/new', function(req, res){
   });
 });
 
-
+// update pet input values to database
 router.put('/save/:id', function(req, res){
   var petId = req.params.id;
   var petObject = req.body;
@@ -44,7 +45,7 @@ router.put('/save/:id', function(req, res){
       console.log('Error connecting to database: ', errorConnectingToDatabase);
       res.sendStatus(500);
     } else {
-      client.query('UPDATE pets SET name=$1, breed=$2, color=$3;',
+      client.query('UPDATE pets SET name=$1, breed=$2, color=$3 WHERE pets.id=$4;',
         [petObject.name, petObject.breed, petObject.color, petId],
         function(errorMakingQuery, result){
           done();
@@ -59,31 +60,33 @@ router.put('/save/:id', function(req, res){
   });
 });
 
+// delete pet from database
 router.delete('/delete/:id', function(req, res){
   var petId = req.params.id;
-  console.log('pet id to delete', petId);
-//connecting to and deleting row from db
-  pool.connect(function(errorConnectingToDatabase, client, done){
-    if(errorConnectingToDatabase) {
-      console.log('Error connecting to database: ', errorConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      client.query('DELETE FROM pets WHERE id=$1;', //SQL query
-        [bookId],
-        function(errorMakingQuery, result){ //function that runs after query takes place
-          done();
-          if(errorMakingQuery) {
-            console.log('Error making the database query: ', errorMakingQuery);
-            res.sendStatus(500);
-          } else {
-            res.sendStatus(202);
-          }
-        });
-    }
+    console.log('pet id to delete', petId);
+  //connecting to and deleting row from db
+    pool.connect(function(errorConnectingToDatabase, client, done){
+      if(errorConnectingToDatabase) {
+        console.log('Error connecting to database: ', errorConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        client.query('DELETE FROM pets WHERE id=$1;', //SQL query
+          [bookId],
+          function(errorMakingQuery, result){ //function that runs after query takes place
+            done();
+            if(errorMakingQuery) {
+              console.log('Error making the database query: ', errorMakingQuery);
+              res.sendStatus(500);
+            } else {
+              res.sendStatus(202);
+            }
+          });
+      }
+    });
   });
-});
 
-router.get('/getpet', function(req, res){
+// fetch pet info from database -- returns array of all pets, owners and ids
+router.get('/fetch', function(req, res){
   // This will be replaced with a SELECT statement to SQL
   pool.connect(function(errorConnectingToDatabase, client, done){
     if(errorConnectingToDatabase) {

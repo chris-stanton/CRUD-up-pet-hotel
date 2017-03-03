@@ -3,62 +3,62 @@ var petTableArray = [];
 console.log("this works");
 $(document).ready(function(){
 
-//registure button click listener
-$("#register").on("click", function(){
-  event.preventDefault();
-  var firstInput = $("#firstName").val();
-  var lastInput = $("#lastName").val();
-  var fullName = firstInput + " " + lastInput;
+  //registure button click listener
+  $("#register").on("click", function(){
+    event.preventDefault();
+    var firstInput = $("#firstName").val();
+    var lastInput = $("#lastName").val();
+    var fullName = firstInput + " " + lastInput;
 
-  $("#ownerContainer").append('<p>' + fullName + '</p>');
+    $("#ownerContainer").append('<p>' + fullName + '</p>');
 
-var ownerNameObject = {
-  firstName: firstInput,
-  lastName: lastInput
-};
-console.log(ownerNameObject);
+    var ownerNameObject = {
+      firstName: firstInput,
+      lastName: lastInput
+    };
+    console.log(ownerNameObject);
 
-      $.ajax({
-        type: 'POST',
-        url: '/customername',
-        data: ownerNameObject,
-        success: function(response){
-          console.log(response);
-          getAllPets();
-          }
-      });//end of ajax POST
+    $.ajax({
+      type: 'POST',
+      url: '/customername',
+      data: ownerNameObject,
+      success: function(response){
+        console.log(response);
+        getAllPets();
+      }
+    });//end of ajax POST
 
     function getAllPets() {
-     $.ajax({
-       type: 'GET',
-       url: '/newpet',
-       success: function(response) {
+      $.ajax({
+        type: 'GET',
+        url: '/pets',
+        success: function(response) {
           console.log(response);
-         }
-     });//end of ajax
-   }//end of getAllPets()
-});//end of registure listener
+        }
+      });//end of ajax
+    }//end of getAllPets()
+  });//end of registure listener
 
-//addpet button click listener
-$("#addPetButton").on("click", function(){
-  event.preventDefault();
-  var petName = $("#petName").val();
-  var petColor = $("#petColor").val();
-  var petBreed = $("#breed").val();
+  //addpet button click listener
+  $("#addPetButton").on("click", function(){
+    event.preventDefault();
+    var petName = $("#petName").val();
+    var petColor = $("#petColor").val();
+    var petBreed = $("#breed").val();
 
-  $("#petNameContainer").append('<p>' + petName + '</p>');
-  $("#petBreedContainer").append('<p>' + petColor + '</p>');
-  $("#petColorContainer").append('<p>' + petBreed + '</p>');
+    $("#petNameContainer").append('<p>' + petName + '</p>');
+    $("#petBreedContainer").append('<p>' + petColor + '</p>');
+    $("#petColorContainer").append('<p>' + petBreed + '</p>');
 
-  appendPetToTable(petTableArray);
+    appendPetToTable(petTableArray);
 
-});//end of addpet listener
+  });//end of addpet listener
 
   //add pets into table on the DOM
 
   $.ajax({
     type: 'GET',
-    url: '/newpet/getpet',
+    url: '/pets/fetch',
     success: function(response) {
       petTableArray = response;
       console.log(petTableArray);
@@ -73,33 +73,33 @@ $("#addPetButton").on("click", function(){
     }
 
 
-}); // end ajax call for table
+  }); // end ajax call for table
 
-//Paige in process update button
-$("table").on("click", ".updateButton", function() {
-  var thisPetId = $(this).parent().first(); //.data().id;
-  console.log(thisPetId);
-  $.ajax({
-    type: 'GET',
-    url: '/save/' + thisPetId,
-    success: function(response) {
-      console.log(response);
-    },
-    error: function(response) {
-      console.log(response);
-    }
-  })
-}); //end on click update button click
+  //Paige in process update button
+  $("table").on("click", ".updateButton", function() {
+    var thisPetId = $(this).parent().parent().data().id;
+    console.log(thisPetId);
+    $.ajax({
+      type: 'POST',
+      url: '/pets/save/' + thisPetId,
+      success: function(response) {
+        console.log(response);
+      },
+      error: function(response) {
+        console.log(response);
+      }
+    })
+  }); //end on click update button click
 
 
-//petDeleteButton listener
+  //petDeleteButton listener
 
-    $('table').on('click', '.deleteButton',  function(){
-      event.preventDefault();
-      var idPetDelete = $(this).parent().data().id;
-      $.ajax({
+  $('table').on('click', '.deleteButton',  function(){
+    event.preventDefault();
+    var idPetDelete = $(this).parent().data().id;
+    $.ajax({
       type: 'DELETE',
-      url: '/delete/' + idPetDelete,
+      url: '/pets/delete/' + idPetDelete,
       success: function(response){
         console.log(response);
       }
