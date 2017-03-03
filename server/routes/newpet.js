@@ -10,15 +10,16 @@ var config = {
 };
 
 var pool = new pg.Pool(config);
-
+//look into this line
 router.post('/new', function(req, res){
   var newPet = req.body;
-
+//adds name, breed, color to database
   pool.connect(function(errorConnectingToDatabase, client, done){
     if(errorConnectingToDatabase) {
       console.log('Error connecting to database: ', errorConnectingToDatabase);
       res.sendStatus(500);
     } else {
+      //look into this line
       client.query('INSERT INTO pets (name, breed, color) VALUES ($1, $2, $3);',
         [newPet.name, newPet.breed, newPet.color], //client.js & index should correspond to each othor
         function(errorMakingQuery, result){
