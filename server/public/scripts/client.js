@@ -47,12 +47,22 @@ $("#addPetButton").on("click", function(){
   var petName = $("#petName").val();
   var petColor = $("#petColor").val();
   var petBreed = $("#breed").val();
+  var addedPet = {
+    name:petName,
+    breed:petBreed,
+    color:petColor
+  };
 
-  $("#petNameContainer").append('<p>' + petName + '</p>');
-  $("#petBreedContainer").append('<p>' + petColor + '</p>');
-  $("#petColorContainer").append('<p>' + petBreed + '</p>');
+  $.ajax({ //ajax call to post new pet
+    type: 'POST',
+    url: '/newpet/new',
+    data: addedPet,
+    success: function(response){
+      console.log(response);
+      }
+  });//end of ajax POST
 
-  appendPetToTable(petDatabaseArray);
+  appendPetToTable(addedPet);
 
 });//end of addpet listener
 
