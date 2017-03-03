@@ -4,7 +4,7 @@ var pg = require('pg');
 var config = {
   database: 'phi',
   host: 'localhost',
-  port: 5000,
+  port: 5432,
   max: 10,
   idleTimeoutMillis: 30000
 };
@@ -83,7 +83,7 @@ router.delete('/delete/:id', function(req, res){
   });
 });
 
-router.get('/', function(req, res){
+router.get('/getpet', function(req, res){
   // This will be replaced with a SELECT statement to SQL
   pool.connect(function(errorConnectingToDatabase, client, done){
     if(errorConnectingToDatabase) {
@@ -99,9 +99,9 @@ router.get('/', function(req, res){
         } else {
           res.send(result.rows);
         }
-      });
+      }); // end client.query
     }
-  });
-});
+  }); // end pool.connect
+}); // end router.get
 
 module.exports = router;

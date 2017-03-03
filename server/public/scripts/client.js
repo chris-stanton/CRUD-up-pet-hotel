@@ -51,41 +51,26 @@ $("#addPetButton").on("click", function(){
 });//end of addpet listener
 
   //add pets into table on the DOM
-  $('tbody').append('<td>owner name</td>' +
-  '<td><input type="text" placeholder="owner" class="inputOwnerName"/></td>' +
-  '<td><input type="text" placeholder="breed" class="inputBreed"/></td>' +
-  '<td><input type="text" placeholder="color" class="inputColor"/></td>' +
-  '<td><button class="updateButton">GO</button></td>' +
-  '<td><button class="deleteButton">GO</button></td>' +
-  '<td><button class="checkedIn">IN</button></td>');
 
-  //registure button click listener
-  $("#register").on("click", function(){
-    event.preventDefault();
-    var firstInput = $("#firstName").val();
-    var lastInput = $("#lastName").val();
-    var fullName = firstInput + " " + lastInput;
-
-    $("#ownerContainer").append('<p>' + fullName + '</p>');
-
-    var ownerName = {
-      firstName: firstInput,
-      lastName: lastInput
-    };
-    });//end of registure listener
+  $.ajax({
+    type: 'GET',
+    url: '/newpet/getpet',
+    success: function(response) {
+      console.log(response);
+      $('tbody').append('<td>owner name</td>' +
+      '<td><input type="text" placeholder="owner" class="inputOwnerName"/></td>' +
+      '<td><input type="text" placeholder="breed" class="inputBreed"/></td>' +
+      '<td><input type="text" placeholder="color" class="inputColor"/></td>' +
+      '<td><button class="updateButton">GO</button></td>' +
+      '<td><button class="deleteButton">GO</button></td>' +
+      '<td><button class="checkedIn">IN</button></td>');
+    },
+    error: function(response) {
+      console.log(response);
+    }
 
 
-    //addpet button click listener
-    $("#addPetButton").on("click", function(){
-      event.preventDefault();
-      var petName = $("#petName").val();
-      var petColor = $("#petColor").val();
-      var petBreed = $("#breed").val();
-
-      $("#petNameContainer").append('<p>' + petName + '</p>');
-      $("#petBreedContainer").append('<p>' + petColor + '</p>');
-      $("#petColorContainer").append('<p>' + petBreed + '</p>');
-    });//end of addpet listener
+}); // end ajax call for table
 
 //Paige in process save/edit button
 $("table").on("click", ".goButton", function() {

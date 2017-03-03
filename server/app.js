@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var pg = require('pg');
-var newPet = require('./routes/newpet.js');
+var newPet = require('./routes/newpet');
 var port = 5000;
 
 app.use(express.static('server/public'));
