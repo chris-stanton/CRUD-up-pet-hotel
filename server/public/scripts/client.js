@@ -74,14 +74,15 @@ $("#addPetButton").on("click", function(){
 
 }); // end ajax call for table
 
-//Paige in process save/edit button
-$("table").on("click", ".goButton", function() {
-  var thisPetId = $(this).parent().parent().children()
+//Paige in process update button
+$("table").on("click", ".updateButton", function() {
+  var thisPetId = $(this).parent().first(); //.data().id;
+  console.log(thisPetId);
   $.ajax({
     type: 'GET',
     url: '/save/' + thisPetId
   })
-}); //end on go button click
+}); //end on click update button click
 
 
 //petDeleteButton listener
