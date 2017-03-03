@@ -57,13 +57,16 @@ $("#addPetButton").on("click", function(){
     url: '/newpet/getpet',
     success: function(response) {
       console.log(response);
-      $('tbody').append('<td>owner name</td>' +
-      '<td><input type="text" placeholder="owner" class="inputOwnerName"/></td>' +
-      '<td><input type="text" placeholder="breed" class="inputBreed"/></td>' +
-      '<td><input type="text" placeholder="color" class="inputColor"/></td>' +
-      '<td><button class="updateButton">GO</button></td>' +
-      '<td><button class="deleteButton">GO</button></td>' +
-      '<td><button class="checkedIn">IN</button></td>');
+      for (var i = 0; i < response.length; i++) {
+        $('tbody').append('<td>owner name</td>' +
+        '<td><input type="text" placeholder="pet name" class="inputPetName" value="' + response[i].name + '"/></td>' +
+        '<td><input type="text" placeholder="breed" class="inputBreed" value="' + response[i].breed + '"/></td>' +
+        '<td><input type="text" placeholder="color" class="inputColor" value="' + response[i].color + '"/></td>' +
+        '<td><button class="updateButton">GO</button></td>' +
+        '<td><button class="deleteButton">GO</button></td>' +
+        '<td><button class="checkedIn">IN</button></td>');
+      }
+
     },
     error: function(response) {
       console.log(response);
